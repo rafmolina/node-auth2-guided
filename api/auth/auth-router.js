@@ -4,6 +4,7 @@ const router = require("express").Router();
 
 const Users = require("../users/users-model.js");
 const { isValid } = require("../users/users-service.js");
+const {jwtSecret} = require("../../config/secrets.js")
 
 router.post("/register", (req, res) => {
   const credentials = req.body;
@@ -68,8 +69,7 @@ function makeToken(user){
   const options = {
     expiresIn: "500s"
   }
-  return jwt.sign(payload,"shhhh",options)
+  return jwt.sign(payload,jwtSecret,options)
 }
-
 
 module.exports = router;
